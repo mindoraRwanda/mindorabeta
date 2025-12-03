@@ -14,7 +14,7 @@ app.use(cors());
 app.use(compression());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan('combined', { stream: { write: (msg) => logger.info(msg.trim()) } }));
+app.use(morgan('combined', { stream: { write: msg => logger.info(msg.trim()) } }));
 
 // Routes
 app.use('/api/v1', routes);
