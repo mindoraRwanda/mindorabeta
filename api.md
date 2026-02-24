@@ -1,6 +1,7 @@
 # Mindora API Endpoints - Organized by User Role
 
 ## Base URL
+
 ```
 http://localhost:5000/api/v1
 ```
@@ -10,6 +11,7 @@ http://localhost:5000/api/v1
 ## 🔓 PUBLIC ENDPOINTS (No Authentication)
 
 ### Authentication
+
 ```
 POST   /auth/register          - Register new user
 POST   /auth/login             - User login
@@ -19,6 +21,7 @@ POST   /auth/verify-email      - Verify email address
 ```
 
 ### Public Resources
+
 ```
 GET    /emergency-contacts     - Get emergency contact list
 GET    /resources              - Get public resources (filtered)
@@ -31,6 +34,7 @@ GET    /resources              - Get public resources (filtered)
 ## 👤 PATIENT ROLE ENDPOINTS
 
 ### Authentication & Profile (8 endpoints)
+
 ```
 POST   /auth/logout
 POST   /auth/refresh-token
@@ -43,6 +47,7 @@ GET    /users/:userId
 ```
 
 ### Therapist Discovery (4 endpoints)
+
 ```
 GET    /therapists                          - Browse approved therapists
 GET    /therapists/:therapistId             - Get therapist details
@@ -51,6 +56,7 @@ GET    /therapists/:therapistId/reviews     - Read reviews
 ```
 
 ### Appointments (6 endpoints)
+
 ```
 GET    /appointments                        - Get my appointments
 GET    /appointments/:appointmentId         - Get appointment details
@@ -61,6 +67,7 @@ GET    /appointments/upcoming               - Get upcoming appointments
 ```
 
 ### Reviews (4 endpoints)
+
 ```
 POST   /reviews                - Create therapist review
 GET    /reviews/:reviewId      - Get review details
@@ -69,6 +76,7 @@ DELETE /reviews/:reviewId      - Delete my review
 ```
 
 ### Exercises (7 endpoints)
+
 ```
 GET    /exercises                              - Browse exercises
 GET    /exercises/:exerciseId                  - Get exercise details
@@ -80,6 +88,7 @@ PUT    /user-exercises/:userExerciseId/complete - Mark complete
 ```
 
 ### Community (16 endpoints)
+
 ```
 GET    /posts                          - Browse posts
 GET    /posts/:postId                  - Get post details
@@ -100,6 +109,7 @@ DELETE /comments/:commentId/like       - Unlike comment
 ```
 
 ### Mood Tracking (5 endpoints)
+
 ```
 GET    /mood-logs                - Get my mood logs
 GET    /mood-logs/:logId         - Get specific log
@@ -110,6 +120,7 @@ GET    /mood-logs/analytics      - Get mood analytics
 ```
 
 ### Messaging (6 endpoints)
+
 ```
 GET    /messages                          - Get my messages
 GET    /messages/conversations            - Get conversations
@@ -120,6 +131,7 @@ DELETE /messages/:messageId               - Delete message
 ```
 
 ### Notifications (5 endpoints)
+
 ```
 GET    /notifications                      - Get notifications
 GET    /notifications/unread-count         - Get unread count
@@ -129,12 +141,14 @@ DELETE /notifications/:notificationId      - Delete notification
 ```
 
 ### Resources (2 endpoints)
+
 ```
 GET    /resources                - Browse resources
 GET    /resources/:resourceId    - Get resource details
 ```
 
 ### User Stats & Gamification (4 endpoints)
+
 ```
 GET    /users/streaks           - Get my streaks
 GET    /users/achievements      - Get my achievements
@@ -143,6 +157,7 @@ GET    /analytics/dashboard     - Get dashboard analytics
 ```
 
 ### Search (1 endpoint)
+
 ```
 GET    /search                  - Global search
 ```
@@ -156,6 +171,7 @@ GET    /search                  - Global search
 ### All Patient Endpoints (68) PLUS:
 
 ### Therapist Profile & Documents (5 endpoints)
+
 ```
 PUT    /therapists/profile                  - Update therapist profile
 POST   /therapists/documents                - Upload verification documents
@@ -165,6 +181,7 @@ GET    /therapists/profile/status           - Get approval status
 ```
 
 ### Availability Management (4 endpoints)
+
 ```
 GET    /therapists/availability             - Get my availability
 POST   /therapists/availability             - Set availability
@@ -173,6 +190,7 @@ DELETE /therapists/availability/:scheduleId - Delete schedule
 ```
 
 ### Appointment Management (3 endpoints)
+
 ```
 PUT    /appointments/:appointmentId/confirm  - Confirm appointment
 PUT    /appointments/:appointmentId/complete - Mark as completed
@@ -180,6 +198,7 @@ GET    /appointments/therapist/all           - Get all my appointments
 ```
 
 ### Session Notes (5 endpoints)
+
 ```
 POST   /session-notes                       - Create session note
 GET    /session-notes/:appointmentId        - Get note by appointment
@@ -189,6 +208,7 @@ DELETE /session-notes/:noteId               - Delete note
 ```
 
 ### Patient Management & Monitoring (8 endpoints)
+
 ```
 GET    /therapists/patients                           - Get assigned patients
 GET    /therapists/patients/:patientId                - Get patient details
@@ -201,6 +221,7 @@ POST   /therapists/patients/:patientId/monitoring     - Add monitoring note
 ```
 
 ### Exercise Management (2 endpoints)
+
 ```
 POST   /exercises                    - Create exercise
 PUT    /exercises/:exerciseId        - Update exercise
@@ -208,12 +229,14 @@ POST   /exercises/:exerciseId/media  - Upload media
 ```
 
 ### Resource Management (2 endpoints)
+
 ```
 POST   /resources                - Create resource
 PUT    /resources/:resourceId    - Update resource
 ```
 
 ### Therapist Analytics (3 endpoints)
+
 ```
 GET    /analytics/therapist-dashboard  - Get therapist dashboard
 GET    /therapists/statistics          - Get my statistics
@@ -229,6 +252,7 @@ GET    /therapists/reviews             - Get my reviews
 ### All Therapist & Patient Endpoints (100) PLUS:
 
 ### User Management (6 endpoints)
+
 ```
 GET    /admin/users                      - Get all users
 GET    /admin/users/:userId              - Get user details
@@ -239,6 +263,7 @@ PUT    /admin/users/:userId/role         - Change user role
 ```
 
 ### Therapist Approval & Management (9 endpoints)
+
 ```
 GET    /admin/therapists/pending                        - Get pending approvals
 GET    /admin/therapists/:therapistId/documents         - View documents
@@ -252,6 +277,7 @@ GET    /admin/therapists/all                            - Get all therapists
 ```
 
 ### Content Moderation (10 endpoints)
+
 ```
 GET    /admin/flagged-content              - Get flagged content
 GET    /admin/posts/pending                - Get pending posts
@@ -266,6 +292,7 @@ DELETE /admin/exercises/:exerciseId        - Delete exercise
 ```
 
 ### System Monitoring & Analytics (10 endpoints)
+
 ```
 GET    /admin/dashboard                    - Admin dashboard
 GET    /admin/statistics/overview          - System overview
@@ -280,6 +307,7 @@ GET    /admin/analytics/trends             - Trend analysis
 ```
 
 ### Patient Monitoring (System-wide) (5 endpoints)
+
 ```
 GET    /admin/monitoring/patients          - All patients monitoring
 GET    /admin/monitoring/patients/:patientId - Patient monitoring details
@@ -289,6 +317,7 @@ POST   /admin/monitoring/generate-report   - Generate monitoring report
 ```
 
 ### Reports & Export (6 endpoints)
+
 ```
 GET    /admin/reports/users                - User reports
 GET    /admin/reports/appointments         - Appointment reports
@@ -299,6 +328,7 @@ GET    /admin/reports/export               - Export data
 ```
 
 ### Resource Management (3 endpoints)
+
 ```
 POST   /resources                  - Create resource
 PUT    /resources/:resourceId      - Update resource
@@ -306,6 +336,7 @@ DELETE /resources/:resourceId      - Delete resource
 ```
 
 ### Emergency Contacts Management (3 endpoints)
+
 ```
 POST   /emergency-contacts                - Create contact
 PUT    /emergency-contacts/:contactId     - Update contact
@@ -313,6 +344,7 @@ DELETE /emergency-contacts/:contactId     - Delete contact
 ```
 
 ### System Settings (2 endpoints)
+
 ```
 GET    /admin/settings             - Get system settings
 PUT    /admin/settings             - Update settings
@@ -324,14 +356,13 @@ PUT    /admin/settings             - Update settings
 
 ## ENDPOINT SUMMARY
 
-| Role | Unique Endpoints | Total Access |
-|------|-----------------|--------------|
-| Public | 7 | 7 |
-| Patient | 68 | 75 (7 + 68) |
-| Therapist | 32 | 107 (7 + 68 + 32) |
-| Admin | 54 | 161 (7 + 68 + 32 + 54) |
+| Role      | Unique Endpoints | Total Access           |
+| --------- | ---------------- | ---------------------- |
+| Public    | 7                | 7                      |
+| Patient   | 68               | 75 (7 + 68)            |
+| Therapist | 32               | 107 (7 + 68 + 32)      |
+| Admin     | 54               | 161 (7 + 68 + 32 + 54) |
 
 **Total Unique Endpoints: 161**
 
 ---
-
