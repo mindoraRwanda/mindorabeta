@@ -27,9 +27,10 @@ POST   /auth/verify-email      - Verify email address
 ```
 GET    /emergency-contacts     - Get emergency contact list
 GET    /resources              - Get public resources (filtered)
+GET    /resources/:id          - Get resource details
 ```
 
-**Total Public Endpoints: 7**
+**Total Public Endpoints: 8**
 
 ---
 
@@ -100,4 +101,153 @@ PUT    /posts/:postId                  - Update my post
 DELETE /posts/:postId                  - Delete my post
 POST   /posts/:postId/like             - Like post
 DELETE /posts/:postId/like             - Unlike post
+POST   /posts/:postId/comments         - Add comment
+GET    /posts/:postId/comments         - Get comments
+PUT    /comments/:commentId            - Update comment
+DELETE /comments/:commentId            - Delete comment
+POST   /comments/:commentId/like       - Like comment
+DELETE /comments/:commentId/like       - Unlike comment
+POST   /posts/:postId/report           - Report post
+POST   /comments/:commentId/report     - Report comment
+```
+
+### Mood Tracking (4 endpoints)
+
+```
+POST   /mood-logs                      - Log mood entry
+GET    /mood-logs                      - Get mood history
+GET    /mood-logs/analytics            - Get mood analytics/trends
+GET    /mood-logs/:logId               - Get specific mood log
+```
+
+### Monitoring (1 endpoint)
+
+```
+GET    /monitoring/me                  - Get my monitoring data
+```
+
+### Notifications (3 endpoints)
+
+```
+GET    /notifications                  - Get all notifications
+PATCH  /notifications/:id/read         - Mark notification as read
+DELETE /notifications/:id              - Delete notification
+```
+
+### Messages (3 endpoints)
+
+```
+POST   /messages                       - Send message
+GET    /messages/conversations         - Get conversations
+PATCH  /messages/:id/read              - Mark message as read
+```
+
+### Emergency Contacts (3 endpoints)
+
+```
+POST   /emergency-contacts             - Add emergency contact
+GET    /emergency-contacts             - Get emergency contacts
+DELETE /emergency-contacts/:id         - Delete emergency contact
+```
+
+---
+
+## 👨‍⚕️ THERAPIST ROLE ENDPOINTS
+
+Includes all authenticated endpoints plus:
+
+### Professional Profile (3 endpoints)
+
+```
+PUT    /therapists/profile             - Update professional profile
+GET    /therapists/dashboard           - Get therapist dashboard stats
+POST   /therapists/documents           - Upload verification documents
+```
+
+### Patient Management (4 endpoints)
+
+```
+GET    /therapists/patients            - Get my patients
+GET    /therapists/patients/:id        - Get patient details
+GET    /monitoring/patients/:patientId/report - Get patient monitoring report
+POST   /monitoring/patients/:patientId - Create monitoring entry/risk assessment
+```
+
+### Appointment Management (3 endpoints)
+
+```
+GET    /appointments/therapist         - Get my schedule
+PUT    /appointments/:id/confirm       - Confirm appointment
+PUT    /appointments/:id/complete      - Complete appointment & add notes
+```
+
+### Availability (2 endpoints)
+
+```
+GET    /therapists/availability        - Get my availability settings
+PUT    /therapists/availability        - Update availability slots
+```
+
+---
+
+## 👑 ADMIN ROLE ENDPOINTS
+
+### Dashboard & Analytics (2 endpoints)
+
+```
+GET    /admin/dashboard                - Get system overview stats
+GET    /admin/content                  - Get content moderation stats
+```
+
+### User Management (3 endpoints)
+
+```
+GET    /admin/users                    - List all users (filter by role)
+GET    /admin/users/:id                - Get user details
+PATCH  /admin/users/:id/status         - Suspend/Activate user
+```
+
+### Therapist Management (2 endpoints)
+
+```
+GET    /admin/therapists               - List therapist applications
+PATCH  /admin/therapists/:id/approve   - Approve/Reject therapist
+```
+
+### Content Moderation (2 endpoints)
+
+```
+GET    /admin/reports                  - Get reported content
+PATCH  /admin/reports/:id/resolve      - Resolve report (delete content/dismiss)
+```
+
+### System Settings (1 endpoint)
+
+```
+GET    /admin/settings                 - Get system configuration
+```
+
+---
+
+## 🔌 WEBSOCKET EVENTS
+
+### Client -> Server
+
+```
+join_room       - Join a specific chat/notification room
+send_message    - Send a chat message
+typing_start    - User started typing
+typing_stop     - User stopped typing
+read_message    - Mark message as read
+```
+
+### Server -> Client
+
+```
+receive_message - New message received
+notification    - New system notification
+user_online     - A user came online
+user_offline    - A user went offline
+typing_status   - Typing indicator update
+error           - Operation error
 ```
