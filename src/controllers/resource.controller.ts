@@ -7,14 +7,14 @@ import { successResponse } from '../utils/apiResponse';
  * Get resources
  */
 export const getResources = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const resources = await resourceService.getAllResources();
-    successResponse(res, resources);
+  const resources = await resourceService.getAllResources();
+  successResponse(res, resources);
 });
 
 /**
  * Get resource by ID
  */
 export const getResource = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const resource = await resourceService.getResourceById(req.params.id);
-    successResponse(res, resource);
+  const resource = await resourceService.getResourceById(req.params.id);
+  successResponse(res, resource);
 });

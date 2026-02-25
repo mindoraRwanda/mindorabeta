@@ -7,7 +7,7 @@ import { successResponse } from '../../utils/apiResponse';
  * Get mood trends
  */
 export const getTrends = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const days = parseInt(req.query.days as string) || 30;
-    const trends = await moodLogService.getMoodTrends(req.user!.userId, days);
-    successResponse(res, trends);
+  const days = parseInt(req.query.days as string) || 30;
+  const trends = await moodLogService.getMoodTrends(req.user!.userId, days);
+  successResponse(res, trends);
 });

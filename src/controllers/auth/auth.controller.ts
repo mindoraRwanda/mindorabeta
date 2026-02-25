@@ -30,8 +30,8 @@ import { successResponse } from '../../utils/apiResponse';
  *         description: User registered successfully
  */
 export const register = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const result = await authService.register(req.body);
-    successResponse(res, result, 'User registered successfully', 201);
+  const result = await authService.register(req.body);
+  successResponse(res, result, 'User registered successfully', 201);
 });
 
 /**
@@ -42,58 +42,62 @@ export const register = catchAsync(async (req: Request, res: Response, next: Nex
  *     tags: [Auth]
  */
 export const login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const result = await authService.login(req.body);
-    successResponse(res, result, 'Login successful');
+  const result = await authService.login(req.body);
+  successResponse(res, result, 'Login successful');
 });
 
 /**
  * Forgot password
  */
-export const forgotPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+export const forgotPassword = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
     await authService.initiatePasswordReset(req.body.email);
     successResponse(res, null, 'Password reset email sent');
-});
+  },
+);
 
 /**
  * Reset password
  */
 export const resetPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    await authService.resetPassword(req.body.token, req.body.password);
-    successResponse(res, null, 'Password reset successful');
+  await authService.resetPassword(req.body.token, req.body.password);
+  successResponse(res, null, 'Password reset successful');
 });
 
 /**
  * Change password (authenticated)
  */
-export const changePassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+export const changePassword = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
     await authService.changePassword(
-        req.user!.userId,
-        req.body.currentPassword,
-        req.body.newPassword,
+      req.user!.userId,
+      req.body.currentPassword,
+      req.body.newPassword,
     );
     successResponse(res, null, 'Password changed successfully');
-});
+  },
+);
 
 /**
  * Verify email
  */
 export const verifyEmail = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    await authService.verifyEmail(req.body.token);
-    successResponse(res, null, 'Email verified successfully');
+  await authService.verifyEmail(req.body.token);
+  successResponse(res, null, 'Email verified successfully');
 });
 
 /**
  * Logout
  */
 export const logout = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    await authService.logout(req.body.refreshToken);
-    successResponse(res, null, 'Logged out successfully');
+  await authService.logout(req.body.refreshToken);
+  successResponse(res, null, 'Logged out successfully');
 });
 
 /**
  * Refresh token
  */
 export const refreshToken = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const result = await authService.refreshToken(req.body.refreshToken);
-    successResponse(res, result, 'Token refreshed successfully');
+  const result = await authService.refreshToken(req.body.refreshToken);
+  successResponse(res, result, 'Token refreshed successfully');
 });

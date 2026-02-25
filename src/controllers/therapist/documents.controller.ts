@@ -6,15 +6,17 @@ import { successResponse } from '../../utils/apiResponse';
 /**
  * Upload document
  */
-export const uploadDocument = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+export const uploadDocument = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
     if (!req.file) {
-        return res.status(400).json({ success: false, message: 'No file uploaded' });
+      return res.status(400).json({ success: false, message: 'No file uploaded' });
     }
 
     const document = await therapistService.uploadDocument(
-        req.params.therapistId || req.user!.userId,
-        req.body.type || 'license',
-        req.file.buffer,
+      req.params.therapistId || req.user!.userId,
+      req.body.type || 'license',
+      req.file.buffer,
     );
     successResponse(res, document, 'Document uploaded successfully', 201);
-});
+  },
+);

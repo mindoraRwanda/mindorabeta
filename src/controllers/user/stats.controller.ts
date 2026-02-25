@@ -11,47 +11,47 @@ import { eq } from 'drizzle-orm';
  * Get user statistics
  */
 export const getStats = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const userId = req.user!.userId;
+  const userId = req.user!.userId;
 
-    // Get exercises completed
-    const exercises = await getUserExerciseProgress(userId);
+  // Get exercises completed
+  const exercises = await getUserExerciseProgress(userId);
 
-    // Get mood logs
-    const moodLogs = await getUserMoodLogs(userId, 30);
+  // Get mood logs
+  const moodLogs = await getUserMoodLogs(userId, 30);
 
-    // Get appointments
-    const userAppointments = await db
-        .select()
-        .from(appointments)
-        .where(eq(appointments.patientId, userId));
+  // Get appointments
+  const userAppointments = await db
+    .select()
+    .from(appointments)
+    .where(eq(appointments.patientId, userId));
 
-    // Get profile points and streak
-    const [profile] = await db.select().from(profiles).where(eq(profiles.userId, userId));
+  // Get profile points and streak
+  const [profile] = await db.select().from(profiles).where(eq(profiles.userId, userId));
 
-    const stats = {
-        exercisesCompleted: exercises.length,
-        moodLogsCount: moodLogs.length,
-        appointmentsCount: userAppointments.length,
-        totalPoints: profile?.totalPoints || 0,
-        streakCount: profile?.streakCount || 0,
-    };
+  const stats = {
+    exercisesCompleted: exercises.length,
+    moodLogsCount: moodLogs.length,
+    appointmentsCount: userAppointments.length,
+    totalPoints: profile?.totalPoints || 0,
+    streakCount: profile?.streakCount || 0,
+  };
 
-    successResponse(res, stats);
+  successResponse(res, stats);
 });
 
 /**
  * Get dashboard summary
  */
 export const getDashboard = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const userId = req.user!.userId;
+  const userId = req.user!.userId;
 
-    const [profile] = await db.select().from(profiles).where(eq(profiles.userId, userId));
+  const [profile] = await db.select().from(profiles).where(eq(profiles.userId, userId));
 
-    const dashboard = {
-        user: profile,
-        recentActivity: [],
-        upcomingAppointments: [],
-    };
+  const dashboard = {
+    user: profile,
+    recentActivity: [],
+    upcomingAppointments: [],
+  };
 
-    successResponse(res, dashboard);
+  successResponse(res, dashboard);
 });

@@ -7,14 +7,14 @@ import { successResponse } from '../../utils/apiResponse';
  * Get all exercises
  */
 export const getExercises = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const exercises = await exerciseService.getAllExercises(req.query);
-    successResponse(res, exercises);
+  const exercises = await exerciseService.getAllExercises(req.query);
+  successResponse(res, exercises);
 });
 
 /**
  * Get exercise by ID
  */
 export const getExercise = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const exercise = await exerciseService.getExerciseById(req.params.id);
-    successResponse(res, exercise);
+  const exercise = await exerciseService.getExerciseById(req.params.id);
+  successResponse(res, exercise);
 });

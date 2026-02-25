@@ -6,7 +6,9 @@ import { successResponse } from '../../utils/apiResponse';
 /**
  * Admin create/update/delete exercise
  */
-export const adminCreateExercise = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+export const adminCreateExercise = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
     const exercise = await exerciseService.createExercise(req.body);
     successResponse(res, exercise, 'Exercise created', 201);
-});
+  },
+);
