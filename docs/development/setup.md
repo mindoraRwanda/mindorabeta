@@ -88,19 +88,19 @@ Server runs at `http://localhost:5000`
 
 ## Available Scripts
 
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Start dev server with hot reload |
-| `npm run build` | Build for production |
-| `npm start` | Run production build |
-| `npm test` | Run tests |
-| `npm run test:watch` | Run tests in watch mode |
-| `npm run test:coverage` | Run tests with coverage |
-| `npm run lint` | Lint code |
-| `npm run lint:fix` | Fix lint errors |
-| `npm run format` | Format code |
-| `npm run db:push` | Push schema to DB |
-| `npm run db:studio` | Open Drizzle Studio |
+| Script                  | Description                      |
+| ----------------------- | -------------------------------- |
+| `npm run dev`           | Start dev server with hot reload |
+| `npm run build`         | Build for production             |
+| `npm start`             | Run production build             |
+| `npm test`              | Run tests                        |
+| `npm run test:watch`    | Run tests in watch mode          |
+| `npm run test:coverage` | Run tests with coverage          |
+| `npm run lint`          | Lint code                        |
+| `npm run lint:fix`      | Fix lint errors                  |
+| `npm run format`        | Format code                      |
+| `npm run db:push`       | Push schema to DB                |
+| `npm run db:studio`     | Open Drizzle Studio              |
 
 ---
 
@@ -135,6 +135,7 @@ mindorabeta/
 ## API Documentation
 
 Swagger UI available at:
+
 ```
 http://localhost:5000/api-docs
 ```
@@ -162,18 +163,18 @@ npm run db:push -- --force
 
 ## Environment Variables
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `PORT` | No | Server port (default: 5000) |
-| `NODE_ENV` | No | development, production, test |
-| `DATABASE_URL` | Yes | PostgreSQL connection string |
-| `JWT_SECRET` | Yes | Secret for JWT signing |
-| `JWT_ACCESS_EXPIRY` | No | Access token expiry (default: 15m) |
-| `JWT_REFRESH_EXPIRY` | No | Refresh token expiry (default: 7d) |
-| `CLOUDINARY_*` | Yes | Cloudinary credentials |
-| `RESEND_API_KEY` | Yes | Resend email API key |
-| `EMAIL_FROM` | Yes | Sender email address |
-| `FRONTEND_URL` | Yes | Frontend URL for links |
+| Variable             | Required | Description                        |
+| -------------------- | -------- | ---------------------------------- |
+| `PORT`               | No       | Server port (default: 5000)        |
+| `NODE_ENV`           | No       | development, production, test      |
+| `DATABASE_URL`       | Yes      | PostgreSQL connection string       |
+| `JWT_SECRET`         | Yes      | Secret for JWT signing             |
+| `JWT_ACCESS_EXPIRY`  | No       | Access token expiry (default: 15m) |
+| `JWT_REFRESH_EXPIRY` | No       | Refresh token expiry (default: 7d) |
+| `CLOUDINARY_*`       | Yes      | Cloudinary credentials             |
+| `RESEND_API_KEY`     | Yes      | Resend email API key               |
+| `EMAIL_FROM`         | Yes      | Sender email address               |
+| `FRONTEND_URL`       | Yes      | Frontend URL for links             |
 
 ---
 

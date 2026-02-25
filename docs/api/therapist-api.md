@@ -9,9 +9,11 @@ Endpoints for users with `THERAPIST` role. Therapists have access to all [Patien
 ## Therapist Profile & Documents
 
 ### PUT /therapists/profile
+
 Update therapist profile.
 
 **Request Body:**
+
 ```json
 {
   "specialization": "Cognitive Behavioral Therapy",
@@ -24,22 +26,28 @@ Update therapist profile.
 ```
 
 ### POST /therapists/documents
+
 Upload verification documents.
 
 **Request:** `multipart/form-data`
+
 - `document`: File (PDF, JPG, PNG)
 - `type`: "license" | "certificate" | "id_proof"
 
 ### GET /therapists/documents
+
 Get my uploaded documents.
 
 ### DELETE /therapists/documents/:documentId
+
 Delete a document.
 
 ### GET /therapists/profile/status
+
 Get approval status.
 
 **Response:**
+
 ```json
 {
   "status": "PENDING" | "APPROVED" | "REJECTED",
@@ -52,12 +60,15 @@ Get approval status.
 ## Availability Management
 
 ### GET /therapists/availability
+
 Get my availability schedule.
 
 ### POST /therapists/availability
+
 Set availability slots.
 
 **Request Body:**
+
 ```json
 {
   "dayOfWeek": 1,
@@ -68,9 +79,11 @@ Set availability slots.
 ```
 
 ### PUT /therapists/availability/:scheduleId
+
 Update availability slot.
 
 ### DELETE /therapists/availability/:scheduleId
+
 Delete availability slot.
 
 ---
@@ -78,12 +91,15 @@ Delete availability slot.
 ## Appointment Management
 
 ### PUT /appointments/:appointmentId/confirm
+
 Confirm a pending appointment.
 
 ### PUT /appointments/:appointmentId/complete
+
 Mark appointment as completed.
 
 ### GET /appointments/therapist/all
+
 Get all appointments for my patients.
 
 **Query Parameters:**
@@ -99,9 +115,11 @@ Get all appointments for my patients.
 ## Session Notes
 
 ### POST /session-notes
+
 Create session notes.
 
 **Request Body:**
+
 ```json
 {
   "appointmentId": "appointment-uuid",
@@ -112,15 +130,19 @@ Create session notes.
 ```
 
 ### GET /session-notes/:appointmentId
+
 Get notes for an appointment.
 
 ### GET /session-notes/patient/:patientId
+
 Get all notes for a patient.
 
 ### PUT /session-notes/:noteId
+
 Update session note.
 
 ### DELETE /session-notes/:noteId
+
 Delete session note.
 
 ---
@@ -128,9 +150,11 @@ Delete session note.
 ## Patient Management
 
 ### GET /therapists/patients
+
 Get my assigned patients.
 
 **Response:**
+
 ```json
 {
   "data": [
@@ -147,12 +171,15 @@ Get my assigned patients.
 ```
 
 ### GET /therapists/patients/:patientId
+
 Get patient details.
 
 ### GET /therapists/patients/:patientId/monitoring
+
 Get patient monitoring data.
 
 **Response:**
+
 ```json
 {
   "moodTrend": "IMPROVING",
@@ -164,21 +191,27 @@ Get patient monitoring data.
 ```
 
 ### GET /therapists/patients/:patientId/mood-history
+
 Get patient's mood history.
 
 ### GET /therapists/patients/:patientId/exercise-progress
+
 Get patient's exercise progress.
 
 ### GET /therapists/patients/:patientId/appointments
+
 Get patient's appointment history.
 
 ### GET /therapists/patients/:patientId/session-notes
+
 Get patient's session notes.
 
 ### POST /therapists/patients/:patientId/monitoring
+
 Add monitoring note.
 
 **Request Body:**
+
 ```json
 {
   "note": "Patient showing improvement",
@@ -192,9 +225,11 @@ Add monitoring note.
 ## Exercise Management
 
 ### POST /exercises
+
 Create an exercise (pending admin approval).
 
 **Request Body:**
+
 ```json
 {
   "title": "Breathing Exercise",
@@ -206,12 +241,15 @@ Create an exercise (pending admin approval).
 ```
 
 ### PUT /exercises/:exerciseId
+
 Update my exercise.
 
 ### POST /exercises/:exerciseId/media
+
 Upload exercise media.
 
 **Request:** `multipart/form-data`
+
 - `media`: Image or video file
 
 ---
@@ -219,9 +257,11 @@ Upload exercise media.
 ## Resource Management
 
 ### POST /resources
+
 Create a resource.
 
 **Request Body:**
+
 ```json
 {
   "title": "Understanding Anxiety",
@@ -233,6 +273,7 @@ Create a resource.
 ```
 
 ### PUT /resources/:resourceId
+
 Update my resource.
 
 ---
@@ -240,9 +281,11 @@ Update my resource.
 ## Therapist Analytics
 
 ### GET /analytics/therapist-dashboard
+
 Get therapist dashboard analytics.
 
 **Response:**
+
 ```json
 {
   "totalPatients": 25,
@@ -255,9 +298,11 @@ Get therapist dashboard analytics.
 ```
 
 ### GET /therapists/statistics
+
 Get my statistics.
 
 ### GET /therapists/reviews
+
 Get reviews received.
 
 ---
@@ -266,15 +311,15 @@ Get reviews received.
 
 **Additional Therapist Endpoints: 32**
 
-| Category | Count |
-|----------|-------|
-| Profile & Documents | 5 |
-| Availability | 4 |
-| Appointments | 3 |
-| Session Notes | 5 |
-| Patient Management | 8 |
-| Exercises | 3 |
-| Resources | 2 |
-| Analytics | 3 |
+| Category            | Count |
+| ------------------- | ----- |
+| Profile & Documents | 5     |
+| Availability        | 4     |
+| Appointments        | 3     |
+| Session Notes       | 5     |
+| Patient Management  | 8     |
+| Exercises           | 3     |
+| Resources           | 2     |
+| Analytics           | 3     |
 
 **Total Access: 100 endpoints** (68 patient + 32 therapist)

@@ -68,11 +68,11 @@ Validates JWT access token.
 ```typescript
 export const authenticate = async (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
-  
+
   if (!token) {
     throw new ApiError(401, 'Authentication required');
   }
-  
+
   const payload = verifyToken(token);
   req.user = payload;
   next();
@@ -80,6 +80,7 @@ export const authenticate = async (req, res, next) => {
 ```
 
 **Usage:**
+
 ```typescript
 router.get('/profile', authenticate, getProfile);
 ```
@@ -104,18 +105,11 @@ export const requireRole = (...roles: Role[]) => {
 ```
 
 **Usage:**
-```typescript
-router.get('/admin/users', 
-  authenticate, 
-  requireRole('ADMIN'), 
-  getUsers
-);
 
-router.get('/therapist/patients',
-  authenticate,
-  requireRole('THERAPIST', 'ADMIN'),
-  getPatients
-);
+```typescript
+router.get('/admin/users', authenticate, requireRole('ADMIN'), getUsers);
+
+router.get('/therapist/patients', authenticate, requireRole('THERAPIST', 'ADMIN'), getPatients);
 ```
 
 ---
@@ -132,13 +126,13 @@ export const validate = (schema: ZodSchema) => {
     const result = schema.safeParse({
       body: req.body,
       params: req.params,
-      query: req.query
+      query: req.query,
     });
-    
+
     if (!result.success) {
       throw new ApiError(400, 'Validation error', result.error.errors);
     }
-    
+
     req.validated = result.data;
     next();
   };
@@ -146,11 +140,9 @@ export const validate = (schema: ZodSchema) => {
 ```
 
 **Usage:**
+
 ```typescript
-router.post('/register', 
-  validate(registerSchema), 
-  register
-);
+router.post('/register', validate(registerSchema), register);
 ```
 
 ---
@@ -165,19 +157,19 @@ Prevents abuse and DDoS.
 // General API limit
 export const apiLimiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
-  max: 100
+  max: 100,
 });
 
 // Auth endpoints limit
 export const authLimiter = rateLimit({
   windowMs: 1 * 60 * 1000,
-  max: 10
+  max: 10,
 });
 
 // Password reset limit
 export const passwordResetLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 3
+  max: 3,
 });
 ```
 
@@ -193,22 +185,22 @@ Catches and formats errors.
 export const errorHandler = (err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Internal Server Error';
-  
+
   // Log error
   logger.error({
     message,
     stack: err.stack,
     path: req.path,
-    method: req.method
+    method: req.method,
   });
-  
+
   res.status(statusCode).json({
     success: false,
     error: {
       code: err.code || 'INTERNAL_ERROR',
       message,
-      ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
-    }
+      ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
+    },
   });
 };
 ```
@@ -224,8 +216,8 @@ HTTP request logging using Morgan.
 ```typescript
 export const requestLogger = morgan('combined', {
   stream: {
-    write: (message) => logger.info(message.trim())
-  }
+    write: message => logger.info(message.trim()),
+  },
 });
 ```
 
@@ -249,17 +241,14 @@ export const uploadImage = multer({
     } else {
       cb(new Error('Only images allowed'));
     }
-  }
+  },
 });
 ```
 
 **Usage:**
+
 ```typescript
-router.post('/avatar', 
-  authenticate, 
-  uploadImage.single('avatar'), 
-  uploadAvatar
-);
+router.post('/avatar', authenticate, uploadImage.single('avatar'), uploadAvatar);
 ```
 
 ---
@@ -280,7 +269,7 @@ export const compressionMiddleware = compression({
     }
     return compression.filter(req, res);
   },
-  level: 6
+  level: 6,
 });
 ```
 
@@ -298,8 +287,8 @@ export const notFoundHandler = (req, res, next) => {
     success: false,
     error: {
       code: 'NOT_FOUND',
-      message: `Route ${req.method} ${req.path} not found`
-    }
+      message: `Route ${req.method} ${req.path} not found`,
+    },
   });
 };
 ```

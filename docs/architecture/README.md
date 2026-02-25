@@ -66,23 +66,27 @@ src/
 ## Layer Responsibilities
 
 ### Routes Layer
+
 - Define API endpoints
 - Apply middleware chains
 - Swagger documentation annotations
 
 ### Controller Layer
+
 - Handle HTTP requests
 - Parse request parameters
 - Format responses
 - Error handling
 
 ### Service Layer
+
 - Business logic implementation
 - Database operations
 - External service integration
 - Transaction management
 
 ### Middleware Layer
+
 - Authentication
 - Authorization (role-based)
 - Request validation
@@ -94,18 +98,23 @@ src/
 ## Key Design Decisions
 
 ### 1. TypeScript First
+
 All code is written in TypeScript for type safety and better developer experience.
 
 ### 2. Drizzle ORM
+
 Lightweight ORM with type-safe queries and migrations.
 
 ### 3. JWT Authentication
+
 Stateless authentication with access/refresh token pattern.
 
 ### 4. Role-Based Access Control
+
 Three roles: PATIENT, THERAPIST, ADMIN with hierarchical permissions.
 
 ### 5. Real-time with Socket.IO
+
 Bi-directional communication for messages and notifications.
 
 ---

@@ -21,14 +21,14 @@ Both return `accessToken` and `refreshToken`.
 
 ## API Sections
 
-| Section | Auth Required | Description |
-|---------|---------------|-------------|
-| [🔓 Public API](public-api.md) | ❌ No | Open endpoints |
-| [Authentication](authentication.md) | Varies | Auth flow |
-| [Patient API](patient-api.md) | ✅ Yes | Patient features |
-| [Therapist API](therapist-api.md) | ✅ Yes | Therapist features |
-| [Admin API](admin-api.md) | ✅ Yes | Admin features |
-| [WebSocket](websocket.md) | ✅ Yes | Real-time events |
+| Section                             | Auth Required | Description        |
+| ----------------------------------- | ------------- | ------------------ |
+| [🔓 Public API](public-api.md)      | ❌ No         | Open endpoints     |
+| [Authentication](authentication.md) | Varies        | Auth flow          |
+| [Patient API](patient-api.md)       | ✅ Yes        | Patient features   |
+| [Therapist API](therapist-api.md)   | ✅ Yes        | Therapist features |
+| [Admin API](admin-api.md)           | ✅ Yes        | Admin features     |
+| [WebSocket](websocket.md)           | ✅ Yes        | Real-time events   |
 
 ---
 
@@ -37,6 +37,7 @@ Both return `accessToken` and `refreshToken`.
 All responses follow this structure:
 
 ### Success Response
+
 ```json
 {
   "success": true,
@@ -46,6 +47,7 @@ All responses follow this structure:
 ```
 
 ### Error Response
+
 ```json
 {
   "success": false,
@@ -60,17 +62,17 @@ All responses follow this structure:
 
 ## HTTP Status Codes
 
-| Code | Meaning |
-|------|---------|
-| 200 | Success |
-| 201 | Created |
-| 400 | Bad Request (validation error) |
-| 401 | Unauthorized |
-| 403 | Forbidden |
-| 404 | Not Found |
-| 409 | Conflict (duplicate) |
-| 429 | Rate Limited |
-| 500 | Server Error |
+| Code | Meaning                        |
+| ---- | ------------------------------ |
+| 200  | Success                        |
+| 201  | Created                        |
+| 400  | Bad Request (validation error) |
+| 401  | Unauthorized                   |
+| 403  | Forbidden                      |
+| 404  | Not Found                      |
+| 409  | Conflict (duplicate)           |
+| 429  | Rate Limited                   |
+| 500  | Server Error                   |
 
 ---
 
@@ -88,12 +90,13 @@ When rate limited, you'll receive a `429` status with retry information.
 
 List endpoints support pagination:
 
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `page` | 1 | Page number |
-| `limit` | 10 | Items per page (max: 100) |
+| Parameter | Default | Description               |
+| --------- | ------- | ------------------------- |
+| `page`    | 1       | Page number               |
+| `limit`   | 10      | Items per page (max: 100) |
 
 Response includes:
+
 ```json
 {
   "data": [...],

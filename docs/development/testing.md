@@ -73,11 +73,11 @@ describe('AuthService', () => {
         password: 'password123',
         fullName: 'Test User'
       });
-      
+
       expect(result.user.email).toBe('test@example.com');
       expect(result.tokens.accessToken).toBeDefined();
     });
-    
+
     it('should throw on duplicate email', async () => {
       await expect(authService.register({
         email: 'existing@example.com',
@@ -98,14 +98,12 @@ Test API endpoints with database.
 // tests/integration/routes/auth.routes.test.ts
 describe('POST /api/v1/auth/register', () => {
   it('should register a new user', async () => {
-    const response = await request(app)
-      .post('/api/v1/auth/register')
-      .send({
-        email: 'new@example.com',
-        password: 'password123',
-        fullName: 'New User'
-      });
-    
+    const response = await request(app).post('/api/v1/auth/register').send({
+      email: 'new@example.com',
+      password: 'password123',
+      fullName: 'New User',
+    });
+
     expect(response.status).toBe(201);
     expect(response.body.success).toBe(true);
     expect(response.body.data.tokens).toBeDefined();
@@ -124,17 +122,15 @@ Test complete user flows.
 describe('Patient Journey', () => {
   it('should complete booking flow', async () => {
     // Register
-    const registerRes = await request(app)
-      .post('/api/v1/auth/register')
-      .send(patientData);
-    
+    const registerRes = await request(app).post('/api/v1/auth/register').send(patientData);
+
     const token = registerRes.body.data.tokens.accessToken;
-    
+
     // Browse therapists
     const therapistsRes = await request(app)
       .get('/api/v1/therapists')
       .set('Authorization', `Bearer ${token}`);
-    
+
     // Book appointment
     const appointmentRes = await request(app)
       .post('/api/v1/appointments')
@@ -142,9 +138,9 @@ describe('Patient Journey', () => {
       .send({
         therapistId: therapistsRes.body.data[0].id,
         startTime: '2024-01-15T10:00:00Z',
-        endTime: '2024-01-15T11:00:00Z'
+        endTime: '2024-01-15T11:00:00Z',
       });
-    
+
     expect(appointmentRes.status).toBe(201);
   });
 });
@@ -181,14 +177,14 @@ beforeEach(async () => {
 export const testUser = {
   email: 'test@example.com',
   password: 'Password123!',
-  fullName: 'Test User'
+  fullName: 'Test User',
 };
 
 export const testTherapist = {
   email: 'therapist@example.com',
   password: 'Password123!',
   fullName: 'Dr. Test',
-  role: 'THERAPIST'
+  role: 'THERAPIST',
 };
 ```
 
@@ -217,8 +213,8 @@ jest.mock('../src/database', () => ({
     select: jest.fn(),
     insert: jest.fn(),
     update: jest.fn(),
-    delete: jest.fn()
-  }
+    delete: jest.fn(),
+  },
 }));
 ```
 
@@ -227,7 +223,7 @@ jest.mock('../src/database', () => ({
 ```typescript
 jest.mock('../src/services/email.service', () => ({
   sendVerificationEmail: jest.fn().mockResolvedValue(undefined),
-  sendPasswordResetEmail: jest.fn().mockResolvedValue(undefined)
+  sendPasswordResetEmail: jest.fn().mockResolvedValue(undefined),
 }));
 ```
 
@@ -242,6 +238,7 @@ npm run test:coverage
 ```
 
 Coverage output:
+
 ```
 coverage/
 ├── lcov-report/    # HTML report

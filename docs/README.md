@@ -4,12 +4,12 @@ Welcome to the Mindora Beta documentation. Mindora is a mental health platform t
 
 ## 📚 Quick Navigation
 
-| Section | Description |
-|---------|-------------|
+| Section                                | Description                           |
+| -------------------------------------- | ------------------------------------- |
 | [**🔓 Public API**](api/public-api.md) | Endpoints requiring no authentication |
-| [API Overview](api/README.md) | Complete API documentation |
-| [Architecture](architecture/README.md) | System architecture & design |
-| [Development](development/setup.md) | Setup & contribution guides |
+| [API Overview](api/README.md)          | Complete API documentation            |
+| [Architecture](architecture/README.md) | System architecture & design          |
+| [Development](development/setup.md)    | Setup & contribution guides           |
 
 ---
 
@@ -17,15 +17,15 @@ Welcome to the Mindora Beta documentation. Mindora is a mental health platform t
 
 These endpoints are publicly accessible:
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/v1/auth/register` | POST | Register new user |
-| `/api/v1/auth/login` | POST | Login |
-| `/api/v1/auth/forgot-password` | POST | Request password reset |
-| `/api/v1/auth/reset-password` | POST | Reset password with token |
-| `/api/v1/auth/verify-email` | POST | Verify email address |
-| `/api/v1/emergency-contacts` | GET | Get emergency contacts |
-| `/api/v1/resources` | GET | Browse public resources |
+| Endpoint                       | Method | Description               |
+| ------------------------------ | ------ | ------------------------- |
+| `/api/v1/auth/register`        | POST   | Register new user         |
+| `/api/v1/auth/login`           | POST   | Login                     |
+| `/api/v1/auth/forgot-password` | POST   | Request password reset    |
+| `/api/v1/auth/reset-password`  | POST   | Reset password with token |
+| `/api/v1/auth/verify-email`    | POST   | Verify email address      |
+| `/api/v1/emergency-contacts`   | GET    | Get emergency contacts    |
+| `/api/v1/resources`            | GET    | Browse public resources   |
 
 👉 **[Full Public API Documentation](api/public-api.md)**
 
@@ -33,12 +33,12 @@ These endpoints are publicly accessible:
 
 ## API by User Role
 
-| Role | Endpoints | Documentation |
-|------|-----------|---------------|
-| 🔓 Public | 7 | [Public API](api/public-api.md) |
-| 👤 Patient | 68 | [Patient API](api/patient-api.md) |
-| 👨‍⚕️ Therapist | +32 | [Therapist API](api/therapist-api.md) |
-| 👑 Admin | +54 | [Admin API](api/admin-api.md) |
+| Role         | Endpoints | Documentation                         |
+| ------------ | --------- | ------------------------------------- |
+| 🔓 Public    | 7         | [Public API](api/public-api.md)       |
+| 👤 Patient   | 68        | [Patient API](api/patient-api.md)     |
+| 👨‍⚕️ Therapist | +32       | [Therapist API](api/therapist-api.md) |
+| 👑 Admin     | +54       | [Admin API](api/admin-api.md)         |
 
 **Total: 161 unique endpoints**
 

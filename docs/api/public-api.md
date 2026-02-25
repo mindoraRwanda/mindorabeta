@@ -13,6 +13,7 @@ Base URL: `http://localhost:5000/api/v1`
 Register a new user account.
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com",
@@ -22,14 +23,15 @@ Register a new user account.
 }
 ```
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| email | string | ✅ | Valid email address |
-| password | string | ✅ | Min 8 characters |
-| fullName | string | ✅ | User's full name |
-| role | string | ❌ | `PATIENT` (default) or `THERAPIST` |
+| Field    | Type   | Required | Description                        |
+| -------- | ------ | -------- | ---------------------------------- |
+| email    | string | ✅       | Valid email address                |
+| password | string | ✅       | Min 8 characters                   |
+| fullName | string | ✅       | User's full name                   |
+| role     | string | ❌       | `PATIENT` (default) or `THERAPIST` |
 
 **Response: `201 Created`**
+
 ```json
 {
   "success": true,
@@ -49,6 +51,7 @@ Register a new user account.
 ```
 
 **Errors:**
+
 - `400` - Validation error
 - `409` - Email already exists
 
@@ -59,6 +62,7 @@ Register a new user account.
 Authenticate user and get tokens.
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com",
@@ -67,6 +71,7 @@ Authenticate user and get tokens.
 ```
 
 **Response: `200 OK`**
+
 ```json
 {
   "success": true,
@@ -85,6 +90,7 @@ Authenticate user and get tokens.
 ```
 
 **Errors:**
+
 - `401` - Invalid credentials
 
 ---
@@ -94,6 +100,7 @@ Authenticate user and get tokens.
 Request a password reset email.
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com"
@@ -101,6 +108,7 @@ Request a password reset email.
 ```
 
 **Response: `200 OK`**
+
 ```json
 {
   "success": true,
@@ -117,6 +125,7 @@ Request a password reset email.
 Reset password using token from email.
 
 **Request Body:**
+
 ```json
 {
   "token": "reset-token-from-email",
@@ -125,6 +134,7 @@ Reset password using token from email.
 ```
 
 **Response: `200 OK`**
+
 ```json
 {
   "success": true,
@@ -133,6 +143,7 @@ Reset password using token from email.
 ```
 
 **Errors:**
+
 - `400` - Invalid or expired token
 
 ---
@@ -142,6 +153,7 @@ Reset password using token from email.
 Verify email address using token.
 
 **Request Body:**
+
 ```json
 {
   "token": "verification-token"
@@ -149,6 +161,7 @@ Verify email address using token.
 ```
 
 **Response: `200 OK`**
+
 ```json
 {
   "success": true,
@@ -157,6 +170,7 @@ Verify email address using token.
 ```
 
 **Errors:**
+
 - `400` - Invalid token
 
 ---
@@ -166,6 +180,7 @@ Verify email address using token.
 Get new access token using refresh token.
 
 **Request Body:**
+
 ```json
 {
   "refreshToken": "valid-refresh-token"
@@ -173,6 +188,7 @@ Get new access token using refresh token.
 ```
 
 **Response: `200 OK`**
+
 ```json
 {
   "success": true,
@@ -184,6 +200,7 @@ Get new access token using refresh token.
 ```
 
 **Errors:**
+
 - `401` - Invalid refresh token
 
 ---
@@ -195,6 +212,7 @@ Get new access token using refresh token.
 Get list of emergency contacts (hotlines, crisis centers).
 
 **Response: `200 OK`**
+
 ```json
 {
   "success": true,
@@ -225,6 +243,7 @@ Browse public mental health resources.
 | limit | integer | Items per page |
 
 **Response: `200 OK`**
+
 ```json
 {
   "success": true,
@@ -251,15 +270,15 @@ Browse public mental health resources.
 
 ## Summary
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/auth/register` | POST | Create account |
-| `/auth/login` | POST | Get auth tokens |
-| `/auth/forgot-password` | POST | Request reset |
-| `/auth/reset-password` | POST | Reset password |
-| `/auth/verify-email` | POST | Verify email |
-| `/auth/refresh-token` | POST | Refresh tokens |
-| `/emergency-contacts` | GET | Crisis contacts |
-| `/resources` | GET | Browse resources |
+| Endpoint                | Method | Description      |
+| ----------------------- | ------ | ---------------- |
+| `/auth/register`        | POST   | Create account   |
+| `/auth/login`           | POST   | Get auth tokens  |
+| `/auth/forgot-password` | POST   | Request reset    |
+| `/auth/reset-password`  | POST   | Reset password   |
+| `/auth/verify-email`    | POST   | Verify email     |
+| `/auth/refresh-token`   | POST   | Refresh tokens   |
+| `/emergency-contacts`   | GET    | Crisis contacts  |
+| `/resources`            | GET    | Browse resources |
 
 **Total Public Endpoints: 8**

@@ -33,11 +33,13 @@ Mindora uses **JWT (JSON Web Token)** based authentication with access and refre
 ## Token Types
 
 ### Access Token
+
 - **Purpose**: Authenticate API requests
 - **Expiry**: 15 minutes
 - **Usage**: Include in `Authorization` header
 
 ### Refresh Token
+
 - **Purpose**: Get new access tokens
 - **Expiry**: 7 days
 - **Usage**: Store securely, use with `/auth/refresh-token`
@@ -56,6 +58,7 @@ curl -X POST http://localhost:5000/api/v1/auth/login \
 ```
 
 Response:
+
 ```json
 {
   "success": true,
@@ -90,11 +93,11 @@ curl -X POST http://localhost:5000/api/v1/auth/refresh-token \
 
 Users have one of three roles:
 
-| Role | Description | Access Level |
-|------|-------------|--------------|
-| `PATIENT` | Regular users | Basic features |
+| Role        | Description                 | Access Level       |
+| ----------- | --------------------------- | ------------------ |
+| `PATIENT`   | Regular users               | Basic features     |
 | `THERAPIST` | Mental health professionals | Patient management |
-| `ADMIN` | System administrators | Full access |
+| `ADMIN`     | System administrators       | Full access        |
 
 ### Role Hierarchy
 
@@ -119,9 +122,9 @@ Authorization: Bearer <access_token>
 ```javascript
 const response = await fetch('http://localhost:5000/api/v1/users/profile', {
   headers: {
-    'Authorization': `Bearer ${accessToken}`,
-    'Content-Type': 'application/json'
-  }
+    Authorization: `Bearer ${accessToken}`,
+    'Content-Type': 'application/json',
+  },
 });
 ```
 
@@ -164,12 +167,12 @@ curl -X POST http://localhost:5000/api/v1/auth/change-password \
 
 ## Error Codes
 
-| HTTP Code | Error | Description |
-|-----------|-------|-------------|
-| 401 | `UNAUTHORIZED` | Missing or invalid token |
-| 401 | `TOKEN_EXPIRED` | Access token expired |
-| 401 | `INVALID_REFRESH_TOKEN` | Refresh token invalid |
-| 403 | `FORBIDDEN` | Insufficient permissions |
+| HTTP Code | Error                   | Description              |
+| --------- | ----------------------- | ------------------------ |
+| 401       | `UNAUTHORIZED`          | Missing or invalid token |
+| 401       | `TOKEN_EXPIRED`         | Access token expired     |
+| 401       | `INVALID_REFRESH_TOKEN` | Refresh token invalid    |
+| 403       | `FORBIDDEN`             | Insufficient permissions |
 
 ---
 

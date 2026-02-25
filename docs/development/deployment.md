@@ -149,6 +149,7 @@ GET /health
 ```
 
 **Response:**
+
 ```json
 {
   "status": "healthy",
@@ -176,12 +177,12 @@ Logs are written using Winston:
 
 ### Log Levels
 
-| Level | Usage |
-|-------|-------|
+| Level | Usage                      |
+| ----- | -------------------------- |
 | error | Errors that need attention |
-| warn | Warning conditions |
-| info | General information |
-| debug | Debug information |
+| warn  | Warning conditions         |
+| info  | General information        |
+| debug | Debug information          |
 
 ---
 
