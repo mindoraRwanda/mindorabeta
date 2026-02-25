@@ -3,43 +3,43 @@ import { EMAIL_SUBJECTS } from '../utils/constants';
 import { logger } from '../utils/logger';
 
 export interface SendEmailOptions {
-    to: string;
-    subject: string;
-    html: string;
-    text?: string;
+  to: string;
+  subject: string;
+  html: string;
+  text?: string;
 }
 
 /**
  * Send an email
  */
 export const sendEmail = async (options: SendEmailOptions): Promise<boolean> => {
-    try {
-        const { error } = await resend.emails.send({
-            from: EMAIL_FROM,
-            to: options.to,
-            subject: options.subject,
-            html: options.html,
-            text: options.text,
-        });
+  try {
+    const { error } = await resend.emails.send({
+      from: EMAIL_FROM,
+      to: options.to,
+      subject: options.subject,
+      html: options.html,
+      text: options.text,
+    });
 
-        if (error) {
-            logger.error('Failed to send email:', error);
-            return false;
-        }
-
-        logger.info(`Email sent to ${options.to}: ${options.subject}`);
-        return true;
-    } catch (error) {
-        logger.error('Failed to send email:', error);
-        return false;
+    if (error) {
+      logger.error('Failed to send email:', error);
+      return false;
     }
+
+    logger.info(`Email sent to ${options.to}: ${options.subject}`);
+    return true;
+  } catch (error) {
+    logger.error('Failed to send email:', error);
+    return false;
+  }
 };
 
 /**
  * Send welcome email
  */
 export const sendWelcomeEmail = async (to: string, name: string): Promise<boolean> => {
-    const html = `
+  const html = `
     <h1>Welcome to Mindora, ${name}!</h1>
     <p>We're excited to have you on your mental health journey.</p>
     <p>Explore our platform to:</p>
@@ -52,24 +52,24 @@ export const sendWelcomeEmail = async (to: string, name: string): Promise<boolea
     <p>Best regards,<br>The Mindora Team</p>
   `;
 
-    return sendEmail({
-        to,
-        subject: EMAIL_SUBJECTS.WELCOME,
-        html,
-        text: `Welcome to Mindora, ${name}! We're excited to have you on your mental health journey.`,
-    });
+  return sendEmail({
+    to,
+    subject: EMAIL_SUBJECTS.WELCOME,
+    html,
+    text: `Welcome to Mindora, ${name}! We're excited to have you on your mental health journey.`,
+  });
 };
 
 /**
  * Send email verification
  */
 export const sendVerificationEmail = async (
-    to: string,
-    name: string,
-    token: string,
+  to: string,
+  name: string,
+  token: string,
 ): Promise<boolean> => {
-    const verificationUrl = `${process.env.CLIENT_URL}/verify-email?token=${token}`;
-    const html = `
+  const verificationUrl = `${process.env.CLIENT_URL}/verify-email?token=${token}`;
+  const html = `
     <h1>Verify Your Email</h1>
     <p>Hi ${name},</p>
     <p>Please verify your email address by clicking the link below:</p>
@@ -79,23 +79,23 @@ export const sendVerificationEmail = async (
     <p>If you didn't create an account with Mindora, please ignore this email.</p>
   `;
 
-    return sendEmail({
-        to,
-        subject: EMAIL_SUBJECTS.EMAIL_VERIFICATION,
-        html,
-    });
+  return sendEmail({
+    to,
+    subject: EMAIL_SUBJECTS.EMAIL_VERIFICATION,
+    html,
+  });
 };
 
 /**
  * Send password reset email
  */
 export const sendPasswordResetEmail = async (
-    to: string,
-    name: string,
-    token: string,
+  to: string,
+  name: string,
+  token: string,
 ): Promise<boolean> => {
-    const resetUrl = `${process.env.CLIENT_URL}/reset-password?token=${token}`;
-    const html = `
+  const resetUrl = `${process.env.CLIENT_URL}/reset-password?token=${token}`;
+  const html = `
     <h1>Reset Your Password</h1>
     <p>Hi ${name},</p>
     <p>We received a request to reset your password. Click the link below to proceed:</p>
@@ -105,27 +105,27 @@ export const sendPasswordResetEmail = async (
     <p>If you didn't request a password reset, please ignore this email.</p>
   `;
 
-    return sendEmail({
-        to,
-        subject: EMAIL_SUBJECTS.PASSWORD_RESET,
-        html,
-    });
+  return sendEmail({
+    to,
+    subject: EMAIL_SUBJECTS.PASSWORD_RESET,
+    html,
+  });
 };
 
 /**
  * Send appointment confirmation email
  */
 export const sendAppointmentConfirmationEmail = async (
-    to: string,
-    name: string,
-    appointmentDetails: {
-        therapistName: string;
-        date: string;
-        time: string;
-        type: string;
-    },
+  to: string,
+  name: string,
+  appointmentDetails: {
+    therapistName: string;
+    date: string;
+    time: string;
+    type: string;
+  },
 ): Promise<boolean> => {
-    const html = `
+  const html = `
     <h1>Appointment Confirmed</h1>
     <p>Hi ${name},</p>
     <p>Your appointment has been confirmed!</p>
@@ -137,18 +137,18 @@ export const sendAppointmentConfirmationEmail = async (
     <p>Take care,<br>The Mindora Team</p>
   `;
 
-    return sendEmail({
-        to,
-        subject: EMAIL_SUBJECTS.APPOINTMENT_CONFIRMATION,
-        html,
-    });
+  return sendEmail({
+    to,
+    subject: EMAIL_SUBJECTS.APPOINTMENT_CONFIRMATION,
+    html,
+  });
 };
 
 /**
  * Send therapist approval email
  */
 export const sendTherapistApprovedEmail = async (to: string, name: string): Promise<boolean> => {
-    const html = `
+  const html = `
     <h1>Congratulations!</h1>
     <p>Hi ${name},</p>
     <p>Your therapist application has been approved!</p>
@@ -162,9 +162,9 @@ export const sendTherapistApprovedEmail = async (to: string, name: string): Prom
     <p>Best regards,<br>The Mindora Team</p>
   `;
 
-    return sendEmail({
-        to,
-        subject: EMAIL_SUBJECTS.THERAPIST_APPROVED,
-        html,
-    });
+  return sendEmail({
+    to,
+    subject: EMAIL_SUBJECTS.THERAPIST_APPROVED,
+    html,
+  });
 };
