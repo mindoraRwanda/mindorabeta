@@ -11,34 +11,34 @@ import { logger } from '../utils/logger';
  * Call this function when the server starts
  */
 export function initializeJobs(): void {
-    logger.info('[Jobs] Initializing scheduled jobs...');
+  logger.info('[Jobs] Initializing scheduled jobs...');
 
-    try {
-        // Appointment reminders - every 15 minutes
-        startAppointmentReminderJob();
+  try {
+    // Appointment reminders - every 15 minutes
+    startAppointmentReminderJob();
 
-        // Daily monitoring - midnight
-        startDailyMonitoringJob();
+    // Daily monitoring - midnight
+    startDailyMonitoringJob();
 
-        // Statistics update - every hour
-        startStatisticsUpdateJob();
+    // Statistics update - every hour
+    startStatisticsUpdateJob();
 
-        // Streak update - 1 AM daily
-        startStreakUpdateJob();
+    // Streak update - 1 AM daily
+    startStreakUpdateJob();
 
-        // Token cleanup - 3 AM daily
-        startTokenCleanupJob();
+    // Token cleanup - 3 AM daily
+    startTokenCleanupJob();
 
-        logger.info('[Jobs] All scheduled jobs initialized successfully');
-    } catch (error) {
-        logger.error('[Jobs] Failed to initialize jobs:', error);
-        throw error;
-    }
+    logger.info('[Jobs] All scheduled jobs initialized successfully');
+  } catch (error) {
+    logger.error('[Jobs] Failed to initialize jobs:', error);
+    throw error;
+  }
 }
 
 /**
  * Job schedule summary:
- * 
+ *
  * | Job                    | Schedule           | Description                                    |
  * |------------------------|-------------------|------------------------------------------------|
  * | Appointment Reminder   | Every 15 minutes  | Sends reminders 1 hour before appointments     |
