@@ -10,12 +10,21 @@ const MAX_AVATAR_SIZE = 5 * 1024 * 1024; // 5MB
 const storage = multer.memoryStorage();
 
 // File filter for avatars
-const avatarFileFilter = (req: Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-    if (ALLOWED_AVATAR_TYPES.includes(file.mimetype)) {
-        cb(null, true);
-    } else {
-        cb(new ApiError(400, `Invalid file type. Allowed types: ${ALLOWED_AVATAR_TYPES.join(', ')}`) as any);
-    }
+const avatarFileFilter = (
+  req: Request,
+  file: Express.Multer.File,
+  cb: multer.FileFilterCallback,
+) => {
+  if (ALLOWED_AVATAR_TYPES.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(
+      new ApiError(
+        400,
+        `Invalid file type. Allowed types: ${ALLOWED_AVATAR_TYPES.join(', ')}`,
+      ) as any,
+    );
+  }
 };
 
 /**
@@ -23,26 +32,26 @@ const avatarFileFilter = (req: Request, file: Express.Multer.File, cb: multer.Fi
  * Handles single avatar image upload with validation
  */
 export const avatarUpload = multer({
-    storage,
-    limits: {
-        fileSize: MAX_AVATAR_SIZE,
-        files: 1,
-    },
-    fileFilter: avatarFileFilter,
+  storage,
+  limits: {
+    fileSize: MAX_AVATAR_SIZE,
+    files: 1,
+  },
+  fileFilter: avatarFileFilter,
 }).single('avatar');
 
 /**
  * Avatar upload with custom field name
  */
 export const avatarUploadField = (fieldName: string = 'avatar') => {
-    return multer({
-        storage,
-        limits: {
-            fileSize: MAX_AVATAR_SIZE,
-            files: 1,
-        },
-        fileFilter: avatarFileFilter,
-    }).single(fieldName);
+  return multer({
+    storage,
+    limits: {
+      fileSize: MAX_AVATAR_SIZE,
+      files: 1,
+    },
+    fileFilter: avatarFileFilter,
+  }).single(fieldName);
 };
 
 export default avatarUpload;

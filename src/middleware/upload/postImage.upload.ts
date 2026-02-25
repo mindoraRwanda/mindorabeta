@@ -11,51 +11,55 @@ const MAX_POST_IMAGES = 5; // Maximum 5 images per post
 const storage = multer.memoryStorage();
 
 // File filter for post images
-const postImageFileFilter = (req: Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-    if (ALLOWED_POST_IMAGE_TYPES.includes(file.mimetype)) {
-        cb(null, true);
-    } else {
-        cb(new ApiError(400, `Invalid image type. Allowed: JPEG, PNG, GIF, WebP`) as any);
-    }
+const postImageFileFilter = (
+  req: Request,
+  file: Express.Multer.File,
+  cb: multer.FileFilterCallback,
+) => {
+  if (ALLOWED_POST_IMAGE_TYPES.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new ApiError(400, `Invalid image type. Allowed: JPEG, PNG, GIF, WebP`) as any);
+  }
 };
 
 /**
  * Single post image upload middleware
  */
 export const postImageUpload = multer({
-    storage,
-    limits: {
-        fileSize: MAX_POST_IMAGE_SIZE,
-        files: 1,
-    },
-    fileFilter: postImageFileFilter,
+  storage,
+  limits: {
+    fileSize: MAX_POST_IMAGE_SIZE,
+    files: 1,
+  },
+  fileFilter: postImageFileFilter,
 }).single('image');
 
 /**
  * Multiple post images upload middleware
  */
 export const postImagesUpload = multer({
-    storage,
-    limits: {
-        fileSize: MAX_POST_IMAGE_SIZE,
-        files: MAX_POST_IMAGES,
-    },
-    fileFilter: postImageFileFilter,
+  storage,
+  limits: {
+    fileSize: MAX_POST_IMAGE_SIZE,
+    files: MAX_POST_IMAGES,
+  },
+  fileFilter: postImageFileFilter,
 }).array('images', MAX_POST_IMAGES);
 
 /**
  * Post with optional image upload
  */
 export const postWithImageUpload = multer({
-    storage,
-    limits: {
-        fileSize: MAX_POST_IMAGE_SIZE,
-        files: MAX_POST_IMAGES,
-    },
-    fileFilter: postImageFileFilter,
+  storage,
+  limits: {
+    fileSize: MAX_POST_IMAGE_SIZE,
+    files: MAX_POST_IMAGES,
+  },
+  fileFilter: postImageFileFilter,
 }).fields([
-    { name: 'image', maxCount: 1 },
-    { name: 'images', maxCount: MAX_POST_IMAGES },
+  { name: 'image', maxCount: 1 },
+  { name: 'images', maxCount: MAX_POST_IMAGES },
 ]);
 
 export default postImageUpload;
