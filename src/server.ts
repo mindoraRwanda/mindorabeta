@@ -2,7 +2,7 @@ import 'dotenv/config';
 import http from 'http';
 import app from './app';
 import { logger } from './utils/logger';
-import { db } from './config/database';
+import { db } from './config';
 import { initializeJobs } from './jobs';
 import { initializeSocket } from './socket';
 
@@ -39,4 +39,3 @@ const startServer = async () => {
 };
 
 startServer();
-

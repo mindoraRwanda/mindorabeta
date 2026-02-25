@@ -28,10 +28,14 @@ app.use(requestLogger);
 app.use('/api/', apiLimiter);
 
 // Swagger API Documentation
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+app.use(
+  '/api-docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, {
     explorer: true,
     customSiteTitle: 'Mindora API Documentation',
-}));
+  }),
+);
 
 // Routes
 app.use('/api/v1', routes);
@@ -46,4 +50,3 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 export default app;
-
