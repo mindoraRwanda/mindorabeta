@@ -45,7 +45,11 @@ router.use(authenticate);
  *       403:
  *         description: Forbidden (Patient only)
  */
-router.post('/therapists/:therapistId/reviews', requireRole('PATIENT'), reviewController.createReview);
+router.post(
+  '/therapists/:therapistId/reviews',
+  requireRole('PATIENT'),
+  reviewController.createReview,
+);
 
 /**
  * @swagger

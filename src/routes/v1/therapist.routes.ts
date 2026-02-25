@@ -162,7 +162,12 @@ router.post('/availability', requireRole('THERAPIST'), availabilityController.se
  *       403:
  *         description: Forbidden
  */
-router.post('/documents', requireRole('THERAPIST'), uploadDocument, documentsController.uploadDocument);
+router.post(
+  '/documents',
+  requireRole('THERAPIST'),
+  uploadDocument,
+  documentsController.uploadDocument,
+);
 
 /**
  * @swagger

@@ -100,7 +100,12 @@ router.post('/login', validate(authValidator.loginSchema), authController.login)
  *       200:
  *         description: Password reset email sent
  */
-router.post('/forgot-password', passwordResetLimiter, validate(authValidator.forgotPasswordSchema), authController.forgotPassword);
+router.post(
+  '/forgot-password',
+  passwordResetLimiter,
+  validate(authValidator.forgotPasswordSchema),
+  authController.forgotPassword,
+);
 
 /**
  * @swagger
@@ -129,7 +134,11 @@ router.post('/forgot-password', passwordResetLimiter, validate(authValidator.for
  *       400:
  *         description: Invalid or expired token
  */
-router.post('/reset-password', validate(authValidator.resetPasswordSchema), authController.resetPassword);
+router.post(
+  '/reset-password',
+  validate(authValidator.resetPasswordSchema),
+  authController.resetPassword,
+);
 
 /**
  * @swagger
@@ -239,6 +248,11 @@ router.post('/logout', authenticate, authController.logout);
  *       401:
  *         description: Unauthorized or incorrect password
  */
-router.post('/change-password', authenticate, validate(authValidator.changePasswordSchema), authController.changePassword);
+router.post(
+  '/change-password',
+  authenticate,
+  validate(authValidator.changePasswordSchema),
+  authController.changePassword,
+);
 
 export default router;

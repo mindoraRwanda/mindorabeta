@@ -60,7 +60,11 @@ router.get('/profile', profileController.getMe);
  *       401:
  *         description: Unauthorized
  */
-router.patch('/profile', validate(userValidator.updateProfileSchema), profileController.updateProfile);
+router.patch(
+  '/profile',
+  validate(userValidator.updateProfileSchema),
+  profileController.updateProfile,
+);
 
 /**
  * @swagger
