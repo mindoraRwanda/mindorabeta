@@ -3,15 +3,15 @@
 // ──────────────────────────────────────────────────────────────
 
 import {
-    posts,
-    postLikes,
-    comments,
-    reviews,
-    notifications,
-    messages,
-    postVisibilityEnum,
-    notificationTypeEnum,
-    messageTypeEnum
+  posts,
+  postLikes,
+  comments,
+  reviews,
+  notifications,
+  messages,
+  postVisibilityEnum,
+  notificationTypeEnum,
+  messageTypeEnum,
 } from '../schema';
 
 // Type exports for community features
@@ -33,13 +33,13 @@ export type MessageType = 'TEXT' | 'IMAGE' | 'VOICE' | 'VIDEO_CALL';
 
 // Re-export from main schema
 export {
-    posts,
-    postLikes,
-    comments,
-    reviews,
-    notifications,
-    messages,
-    postVisibilityEnum,
-    notificationTypeEnum,
-    messageTypeEnum
+  posts,
+  postLikes,
+  comments,
+  reviews,
+  notifications,
+  messages,
+  postVisibilityEnum,
+  notificationTypeEnum,
+  messageTypeEnum,
 };

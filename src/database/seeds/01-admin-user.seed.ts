@@ -7,7 +7,7 @@ import bcrypt from 'bcryptjs';
  */
 export async function seedAdminUser() {
   const adminEmail = 'admin@mindora.rw';
-  
+
   // Check if admin already exists
   const existingAdmin = await db.query.users.findFirst({
     where: (users, { eq }) => eq(users.email, adminEmail),
@@ -20,14 +20,17 @@ export async function seedAdminUser() {
 
   // Create admin user
   const hashedPassword = await bcrypt.hash('Admin@123!', 12);
-  
-  const [adminUser] = await db.insert(users).values({
-    email: adminEmail,
-    password: hashedPassword,
-    role: 'ADMIN',
-    isActive: true,
-    isEmailVerified: true,
-  }).returning();
+
+  const [adminUser] = await db
+    .insert(users)
+    .values({
+      email: adminEmail,
+      password: hashedPassword,
+      role: 'ADMIN',
+      isActive: true,
+      isEmailVerified: true,
+    })
+    .returning();
 
   // Create admin profile
   await db.insert(profiles).values({
@@ -45,7 +48,7 @@ export async function seedAdminUser() {
  */
 export async function seedTherapistUser() {
   const therapistEmail = 'therapist@mindora.rw';
-  
+
   const existingTherapist = await db.query.users.findFirst({
     where: (users, { eq }) => eq(users.email, therapistEmail),
   });
@@ -56,14 +59,17 @@ export async function seedTherapistUser() {
   }
 
   const hashedPassword = await bcrypt.hash('Therapist@123!', 12);
-  
-  const [therapistUser] = await db.insert(users).values({
-    email: therapistEmail,
-    password: hashedPassword,
-    role: 'THERAPIST',
-    isActive: true,
-    isEmailVerified: true,
-  }).returning();
+
+  const [therapistUser] = await db
+    .insert(users)
+    .values({
+      email: therapistEmail,
+      password: hashedPassword,
+      role: 'THERAPIST',
+      isActive: true,
+      isEmailVerified: true,
+    })
+    .returning();
 
   await db.insert(profiles).values({
     userId: therapistUser.id,
@@ -80,7 +86,7 @@ export async function seedTherapistUser() {
  */
 export async function seedPatientUser() {
   const patientEmail = 'patient@mindora.rw';
-  
+
   const existingPatient = await db.query.users.findFirst({
     where: (users, { eq }) => eq(users.email, patientEmail),
   });
@@ -91,14 +97,17 @@ export async function seedPatientUser() {
   }
 
   const hashedPassword = await bcrypt.hash('Patient@123!', 12);
-  
-  const [patientUser] = await db.insert(users).values({
-    email: patientEmail,
-    password: hashedPassword,
-    role: 'PATIENT',
-    isActive: true,
-    isEmailVerified: true,
-  }).returning();
+
+  const [patientUser] = await db
+    .insert(users)
+    .values({
+      email: patientEmail,
+      password: hashedPassword,
+      role: 'PATIENT',
+      isActive: true,
+      isEmailVerified: true,
+    })
+    .returning();
 
   await db.insert(profiles).values({
     userId: patientUser.id,

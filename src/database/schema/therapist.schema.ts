@@ -2,7 +2,12 @@
 // Therapist Schema - Type definitions and exports
 // ──────────────────────────────────────────────────────────────
 
-import { therapists, therapistDocuments, therapistAvailability, therapistStatusEnum } from '../schema';
+import {
+  therapists,
+  therapistDocuments,
+  therapistAvailability,
+  therapistStatusEnum,
+} from '../schema';
 
 // Type exports for therapists
 export type Therapist = typeof therapists.$inferSelect;
