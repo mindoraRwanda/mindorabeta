@@ -4,6 +4,8 @@
 
 This Postman collection is a comprehensive resource for the Mindora Beta API, covering **all** endpoints across the platform. This includes authentication, user profiles, therapist management, appointments, community features, mood tracking, monitoring, messaging, notifications, emergency contacts, reviews, resources, and admin operations.
 
+For detailed API documentation, including request/response schemas and examples, please refer to the [API Documentation](docs/api/README.md) in the `docs/` folder.
+
 ## Setup
 
 1. **Import**: Open Postman and click "Import" -> "File" -> "Upload Files". Select `postman_collection.json`.
