@@ -3,7 +3,12 @@ import { db } from '../config/database';
 import { users, profiles, tokens } from '../database/schema';
 import { eq, and, gt } from 'drizzle-orm';
 import { ApiError } from '../utils/apiError';
-import { generateAccessToken, generateRefreshToken, TokenPayload } from '../config/jwt';
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  verifyRefreshToken,
+  TokenPayload,
+} from '../config/jwt';
 import { sendWelcomeEmail, sendVerificationEmail, sendPasswordResetEmail } from './email.service';
 import { generateAnonymousName } from '../utils/generateAnonymousName';
 import crypto from 'crypto';
@@ -322,46 +327,44 @@ export const logout = async (refreshToken: string): Promise<void> => {
  * Refresh token
  */
 export const refreshToken = async (token: string): Promise<AuthResponse> => {
-  if (!token) throw ApiError.unauthorized('Refresh token is required');
-
   // Verify token
-  // If we were using a whitelist (storing refresh tokens in DB), we would check existence here.
-  // checks:
-  // 1. Verify signature
-  // 2. Check if in blacklist (if implemented)
+  let payload: TokenPayload;
+  try {
+    payload = verifyRefreshToken(token);
+  } catch (error) {
+    throw ApiError.unauthorized('Invalid or expired refresh token');
+  }
 
-  // For now, let's just use the config verify
-  // We need to import verifyRefreshToken from config but it might cause circular dependency if not careful
-  // But we are already importing generateRefreshToken, so it should be fine.
+  // Find user
+  const [user] = await db.select().from(users).where(eq(users.id, payload.userId)).limit(1);
 
-  // Note: The verifyRefreshToken implementation in config/jwt.ts needs to be exported
-  // I will dynamically import or assume it's available.
-  // Actually I can just import jwt from jsonwebtoken and verify with secret directly to avoid circular deps if needed
-  // or just assume the import works (it's in the import list).
+  if (!user || !user.isActive) {
+    throw ApiError.unauthorized('User not found or inactive');
+  }
 
-  // Actually verifyRefreshToken might be in config/index.ts exports, let's use what we have.
-  // I can't easily change the imports in this single replace call without being careful.
-  // Let's stick to the existing imports. I see `verifyVerifier` is not imported.
+  // Get profile
+  const [profile] = await db.select().from(profiles).where(eq(profiles.userId, user.id)).limit(1);
 
-  // I'll add the verifying logic manually with jwt if needed, or better,
-  // since I can't see the top imports easily in this view (I replaced them all),
-  // I will use `jwt.verify` if I imported jwt. I did import tokens, etc.
-  // Ah, I need to import `verifyRefreshToken` from config.
+  // Generate new tokens
+  const tokenPayload: TokenPayload = {
+    userId: user.id,
+    email: user.email,
+    role: user.role,
+  };
 
-  // Let's defer strict refresh token logic for a separate dedicated edit if I can't fit it perfectly,
-  // but the task was to make it production ready.
-  // I will return a mock implementation that is slightly better but admits it relies on client.
+  const accessToken = generateAccessToken(tokenPayload);
+  const refreshToken = generateRefreshToken(tokenPayload);
 
   return {
     user: {
-      id: 'mock-id',
-      email: 'mock@example.com',
-      role: 'PATIENT',
-      profile: {},
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      profile,
     },
     tokens: {
-      accessToken: 'new-access-token',
-      refreshToken: 'new-refresh-token',
+      accessToken,
+      refreshToken,
     },
   };
 };
