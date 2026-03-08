@@ -45,9 +45,13 @@ export const register = async (data: RegisterData): Promise<AuthResponse> => {
   const { email, password, fullName, role = 'PATIENT' } = data;
 
   // Check if user already exists
-  const existingUser = await db.select().from(users).where(eq(users.email, email)).limit(1);
+  const [existingUser] = await db
+    .select({ id: users.id })
+    .from(users)
+    .where(eq(users.email, email))
+    .limit(1);
 
-  if (existingUser.length > 0) {
+  if (existingUser) {
     throw ApiError.conflict('User with this email already exists');
   }
 
@@ -62,7 +66,11 @@ export const register = async (data: RegisterData): Promise<AuthResponse> => {
       password: hashedPassword,
       role,
     })
-    .returning();
+    .returning({
+      id: users.id,
+      email: users.email,
+      role: users.role,
+    });
 
   // Generate anonymous name
   const anonymousName = generateAnonymousName();
@@ -75,7 +83,12 @@ export const register = async (data: RegisterData): Promise<AuthResponse> => {
       fullName,
       anonymousName,
     })
-    .returning();
+    .returning({
+      id: profiles.id,
+      userId: profiles.userId,
+      fullName: profiles.fullName,
+      anonymousName: profiles.anonymousName,
+    });
 
   // Generate tokens
   const tokenPayload: TokenPayload = {
@@ -121,7 +134,21 @@ export const login = async (data: LoginData): Promise<AuthResponse> => {
   const { email, password } = data;
 
   // Find user by email
-  const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+  const [user] = await db
+    .select({
+      id: users.id,
+      email: users.email,
+      password: users.password,
+      role: users.role,
+      isActive: users.isActive,
+      isEmailVerified: users.isEmailVerified,
+      lastLoginAt: users.lastLoginAt,
+      createdAt: users.createdAt,
+      updatedAt: users.updatedAt,
+    })
+    .from(users)
+    .where(eq(users.email, email))
+    .limit(1);
 
   if (!user) {
     throw ApiError.unauthorized('Invalid email or password');
@@ -173,7 +200,11 @@ export const login = async (data: LoginData): Promise<AuthResponse> => {
  * Initiate password reset
  */
 export const initiatePasswordReset = async (email: string): Promise<void> => {
-  const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+  const [user] = await db
+    .select({ id: users.id })
+    .from(users)
+    .where(eq(users.email, email))
+    .limit(1);
 
   if (!user) {
     // Don't reveal that user doesn't exist
@@ -241,7 +272,11 @@ export const changePassword = async (
   currentPassword: string,
   newPassword: string,
 ): Promise<void> => {
-  const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+  const [user] = await db
+    .select({ id: users.id, password: users.password })
+    .from(users)
+    .where(eq(users.id, userId))
+    .limit(1);
 
   if (!user) {
     throw ApiError.notFound('User not found');
@@ -336,7 +371,16 @@ export const refreshToken = async (token: string): Promise<AuthResponse> => {
   }
 
   // Find user
-  const [user] = await db.select().from(users).where(eq(users.id, payload.userId)).limit(1);
+  const [user] = await db
+    .select({
+      id: users.id,
+      email: users.email,
+      role: users.role,
+      isActive: users.isActive,
+    })
+    .from(users)
+    .where(eq(users.id, payload.userId))
+    .limit(1);
 
   if (!user || !user.isActive) {
     throw ApiError.unauthorized('User not found or inactive');
