@@ -37,7 +37,10 @@ export const errorHandler = (err: any, req: Request, res: Response, next: NextFu
   res.status(error.statusCode).json({
     success: false,
     message: error.message,
-    ...(process.env.NODE_ENV === 'development' && { stack: error.stack }),
+    ...(process.env.NODE_ENV === 'development' && {
+      stack: error.stack,
+      cause: err.cause || err.originalError || err,
+    }),
   });
 };
 
