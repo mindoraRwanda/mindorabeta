@@ -94,9 +94,9 @@ router.post('/profile/avatar', uploadAvatar, profileController.uploadAvatar);
 
 /**
  * @swagger
- * /users/profile/avatar:
+ * /users/account:
  *   delete:
- *     summary: Delete user avatar
+ *     summary: Delete user account
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
@@ -106,7 +106,7 @@ router.post('/profile/avatar', uploadAvatar, profileController.uploadAvatar);
  *       401:
  *         description: Unauthorized
  */
-router.delete('/profile/avatar', profileController.deleteAccount);
+router.delete('/account', profileController.deleteAccount);
 
 // Stats routes
 
