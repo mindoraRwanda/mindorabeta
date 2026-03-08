@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import compression from 'compression';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './config/swagger';
+import { config } from './config';
 import { logger } from './utils/logger';
 import routes from './routes';
 import { errorHandler, notFoundHandler } from './middleware/error';
@@ -17,9 +18,10 @@ const app = express();
 app.use(helmet());
 app.use(
   cors({
-    origin: '*', // Allow all origins
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With', 'Origin'],
+    credentials: true,
   }),
 );
 app.use(compression());
