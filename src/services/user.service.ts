@@ -17,7 +17,18 @@ export interface UpdateProfileData {
  * Get user profile
  */
 export const getUserProfile = async (userId: string) => {
-  const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+  const [user] = await db
+    .select({
+      id: users.id,
+      email: users.email,
+      role: users.role,
+      isEmailVerified: users.isEmailVerified,
+      lastLoginAt: users.lastLoginAt,
+      createdAt: users.createdAt,
+    })
+    .from(users)
+    .where(eq(users.id, userId))
+    .limit(1);
 
   if (!user) {
     throw ApiError.notFound('User not found');
