@@ -45,13 +45,12 @@ export const register = async (data: RegisterData): Promise<AuthResponse> => {
   const { email, password, fullName, role = 'PATIENT' } = data;
 
   // Check if user already exists
-  const [existingUser] = await db
+  const existingUsers = await db
     .select({ id: users.id })
     .from(users)
-    .where(eq(users.email, email))
-    .limit(1);
+    .where(eq(users.email, email));
 
-  if (existingUser) {
+  if (existingUsers.length > 0) {
     throw ApiError.conflict('User with this email already exists');
   }
 
